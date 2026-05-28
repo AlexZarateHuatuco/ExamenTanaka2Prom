@@ -3,9 +3,10 @@ using System.Collections;
 
 public class ShotgunShot : WeaponBase
 {
-    [SerializeField] private Camera playerCamera;
-    [SerializeField] private int pellets = 8;
-    [SerializeField] private float spread = 0.1f;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject pelletPrefab;
+    [SerializeField] private int pelletCount = 8;
+    [SerializeField] private float spread = 10f;
 
     private void Update()
     {
@@ -33,31 +34,22 @@ public class ShotgunShot : WeaponBase
     {
         if (!CanShoot())
             return;
+        Debug.Log("Disparando shotgun");
+
 
         SetNextFireTime();
         ConsumeAmmo();
 
-        for (int i = 0; i < pellets; i++)
+        for (int i = 0; i < pelletCount; i++)
         {
-            ShootPellet();
+            SpawnPellet();
         }
     }
 
-    private void ShootPellet()
+    private void SpawnPellet()
     {
-        Vector3 direction = playerCamera.transform.forward;
+        Quaternion spreadRotation = firePoint.rotation *Quaternion.Euler(Random.Range(-spread, spread),Random.Range(-spread, spread),0f);
 
-        direction.x += Random.Range(-spread, spread);
-        direction.y += Random.Range(-spread, spread);
-
-        Ray ray = new Ray(playerCamera.transform.position,direction);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 50f))
-        {
-            if (hit.collider.TryGetComponent(out EnemyBase enemy))
-            {
-                enemy.TakeDamage(Damage);
-            }
-        }
+        Instantiate(pelletPrefab,firePoint.position,spreadRotation);
     }
 }

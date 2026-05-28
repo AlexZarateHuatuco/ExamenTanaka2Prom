@@ -3,7 +3,8 @@ using System.Collections;
 
 public class RifleShot : WeaponBase
 {
-    [SerializeField] private Camera playerCamera;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject bulletPrefab;
 
     private void Update()
     {
@@ -12,7 +13,8 @@ public class RifleShot : WeaponBase
 
     private void HandleInput()
     {
-        if (IsReloading) return;
+        if (IsReloading)
+            return;
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -28,19 +30,14 @@ public class RifleShot : WeaponBase
 
     public override void Shoot()
     {
-        if (!CanShoot()) return;
+        if (!CanShoot())
+            return;
+
+        Debug.Log("Disparando");
 
         SetNextFireTime();
         ConsumeAmmo();
 
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
-        {
-            if (hit.collider.TryGetComponent(out EnemyBase enemy))
-            {
-                enemy.TakeDamage(Damage);
-            }
-        }
+        Instantiate(bulletPrefab,firePoint.position,firePoint.rotation);
     }
 }

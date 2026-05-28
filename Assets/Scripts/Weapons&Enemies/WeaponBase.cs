@@ -29,6 +29,11 @@ public abstract class WeaponBase : MonoBehaviour
         CurrentAmmo--;
     }
 
+    protected bool HasAmmo()
+    {
+        return CurrentAmmo > 0;
+    }
+
     protected virtual void SetNextFireTime()
     {
         NextFireTime = Time.time + fireRate;
@@ -37,12 +42,12 @@ public abstract class WeaponBase : MonoBehaviour
     protected virtual IEnumerator Reload()
     {
         IsReloading = true;
-
         yield return new WaitForSeconds(reloadTime);
-
         CurrentAmmo = maxAmmo;
-
         IsReloading = false;
+
+        Debug.Log("Recargando...");
+        Debug.Log("Recarga completa");
     }
 
     public abstract void Shoot();

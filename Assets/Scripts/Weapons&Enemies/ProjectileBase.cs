@@ -2,18 +2,25 @@ using UnityEngine;
 
 public abstract class ProjectileBase : MonoBehaviour
 {
-    [SerializeField] private float speed = 10f;
+    [SerializeField] private float speed = 40f;
     [SerializeField] private float lifeTime = 5f;
+    [SerializeField] private int damage = 5;
 
-    protected float Speed => speed;
+    private Rigidbody rb;
+    protected int Damage => damage;
+
+    protected virtual void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     protected virtual void Start()
     {
-        Destroy(gameObject, lifeTime);
-    }
+        if (rb != null)
+        {
+            rb.linearVelocity = transform.forward * speed;
+        }
 
-    protected virtual void Move()
-    {
-        transform.position += transform.forward * Speed * Time.deltaTime;
+        Destroy(gameObject, lifeTime);
     }
 }
