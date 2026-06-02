@@ -6,8 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Pantallas/MenuInicio.unity
+    guid: cfc4bd3bec40c7b4081ef286ce54c972
+  - enabled: 1
+    path: Assets/Scenes/Pantallas/MenuCreditos.unity
+    guid: 2893dc90002aef6479b2374f189df2ec
+  - enabled: 1
+    path: Assets/Scenes/Pantallas/MenuPausa.unity
+    guid: 639875fde37c7224c8a6a632f819ac46
+  - enabled: 1
+    path: Assets/Scenes/Pantallas/Victoria.unity
+    guid: 67dd9023cfb01e545b7cc85fee052a62
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 0
+    path: Assets/Scenes/Pantallas/MenuOpciones.unity
+    guid: 1978432936003f24f84d2390f6d94224
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
