@@ -15,11 +15,6 @@ public class MainMenu : MonoBehaviour
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
     }
-    public void OpenCreditsPanel()
-    {
-        mainMenu.SetActive(false);
-        optionsMenu.SetActive(true);
-    }
     public void Credits()
     {
         SceneManager.LoadScene("MenuCreditos");
