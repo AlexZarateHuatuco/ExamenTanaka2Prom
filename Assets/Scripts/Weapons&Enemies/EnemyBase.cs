@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class EnemyBase : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 15;
+    [SerializeField] private int maxHealth = 10;
     [SerializeField] private float moveSpeed = 5f;
 
     protected int CurrentHealth;

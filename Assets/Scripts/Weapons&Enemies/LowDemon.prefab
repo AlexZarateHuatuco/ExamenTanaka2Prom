@@ -159,7 +159,7 @@ MonoBehaviour:
   player: {fileID: 0}
   firePoint: {fileID: 8330266439283451117}
   projectilePrefab: {fileID: 824727518773343683, guid: b34e08aa77aac7c458b8790f20d1eda9, type: 3}
-  detectionRange: 20
+  detectionRange: 30
   attackRange: 10
   fireRate: 1
 --- !u!1 &7755544005465547724
