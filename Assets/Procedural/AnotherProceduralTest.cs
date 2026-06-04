@@ -47,13 +47,9 @@ public class AnotherProceduralTest : MonoBehaviour
 
         if (entrada != null && salida != null)
         {
-            Vector3 desfaseEntrada = nuevaHabitacion.transform.position - entrada.position;
-            nuevaHabitacion.transform.position = puntoSiguienteSpawn + desfaseEntrada;
+            nuevaHabitacion.transform.position = puntoSiguienteSpawn;
+            nuevaHabitacion.transform.position -= (entrada.position - nuevaHabitacion.transform.position);
             puntoSiguienteSpawn = salida.position;
-        }
-        else
-        {
-            puntoSiguienteSpawn += Vector3.forward * 10;
         }
     }
 
