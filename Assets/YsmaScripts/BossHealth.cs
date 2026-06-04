@@ -26,7 +26,7 @@ public class BossHealth : MonoBehaviour
        if (currentHP<=0)
         {
             currentHP = 0;
-            SceneManager.LoadScene(gameoverscene);
+            SceneManager.LoadScene("VictoryScene");
         }
     }
 }
