@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class BossBehaviour : MonoBehaviour
 {
-{
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform player;
