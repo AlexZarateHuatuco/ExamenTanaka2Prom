@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class BossBehaviour : MonoBehaviour
 {
-{
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform player;              // its own player reference for aiming
+    [SerializeField] private BossActivationRange activationRange;
 
     [SerializeField] private int burstCount = 5;
     [SerializeField] private float fireInterval = 1f;
@@ -15,18 +15,35 @@ public class BossBehaviour : MonoBehaviour
     private float cooldownTimer;
     private int bulletsLeftInBurst;
     private bool isCoolingDown;
+    private bool wasInRange;
 
     void Start()
     {
-        bulletsLeftInBurst = burstCount;
-        fireTimer = fireInterval;
-        isCoolingDown = false;
-        cooldownTimer = 0f;
+        ResetBossState();
     }
+
     void Update()
     {
+        if (activationRange == null) return;
 
-        if (isCoolingDown==true)
+        // Simply read the bool from the other script
+        if (!activationRange.PlayerInRange)
+        {
+            if (wasInRange)
+            {
+                ResetBossState();
+                wasInRange = false;
+            }
+            return;
+        }
+
+        if (!wasInRange)
+        {
+            ResetBossState();
+            wasInRange = true;
+        }
+
+        if (isCoolingDown)
         {
             cooldownTimer -= Time.deltaTime;
             if (cooldownTimer <= 0f)
@@ -37,7 +54,6 @@ public class BossBehaviour : MonoBehaviour
             }
             return;
         }
-
 
         fireTimer -= Time.deltaTime;
         if (fireTimer <= 0f)
@@ -57,13 +73,20 @@ public class BossBehaviour : MonoBehaviour
         }
     }
 
-
     void Shoot()
     {
+        if (bulletPrefab == null || firePoint == null || player == null) return;
+
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        //amigis gonna b honest jere - me robe el codigo de aribe de un proyecto viejo corr//obotado por... 
-        //tahdah!!! codigo ajeno de un foro. pls dounnut hate m3 uwu
         Vector3 direction = (player.position - firePoint.position).normalized;
         bullet.transform.forward = direction;
+    }
+
+    void ResetBossState()
+    {
+        bulletsLeftInBurst = burstCount;
+        fireTimer = fireInterval;
+        isCoolingDown = false;
+        cooldownTimer = 0f;
     }
 }
